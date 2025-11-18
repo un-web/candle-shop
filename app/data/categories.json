@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "Ароматические",
+        "slug": "aromatic",
+        "count": 3
+    },
+    {
+        "id": 2,
+        "name": "Декоративные",
+        "slug": "decorative",
+        "count": 2
+    },
+    {
+        "id": 3,
+        "name": "Спа",
+        "slug": "spa",
+        "count": 2
+    },
+    {
+        "id": 4,
+        "name": "Подарочные",
+        "slug": "gift",
+        "count": 1
+    }
+]
