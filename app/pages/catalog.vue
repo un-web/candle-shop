@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { FilterOptions } from '~/types'
+import type { FilterOptions } from '~~/shared/types'
 import { useProducts } from '~/composables/useProducts'
 import { usePagination } from '~/composables/usePagination'
 
@@ -110,8 +110,8 @@ useHead({
                         <!-- Сортировка -->
                         <div class="flex items-center gap-3">
                             <label class="text-sm text-gray-600">Сортировка:</label>
-                            <select v-model="sortBy" @change="handleSortChange"
-                                class="px-3 py-2 border rounded-lg text-sm">
+                            <select class="px-3 py-2 border rounded-lg text-sm" v-model="sortBy"
+                                @change="handleSortChange">
                                 <option value="default">По умолчанию</option>
                                 <option value="price-asc">Цена: по возрастанию</option>
                                 <option value="price-desc">Цена: по убыванию</option>

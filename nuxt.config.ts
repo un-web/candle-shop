@@ -2,6 +2,22 @@
 import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
+
+  runtimeConfig: {
+    // Приватные ключи (только на сервере)
+    emailHost: '',
+    emailPort: '',
+    emailUser: '',
+    emailPassword: '',
+    emailRecipient: '',
+    telegramBotToken: '',
+    telegramChatId: '',
+
+    public: {
+      // Публичные ключи (доступны на клиенте)
+    }
+  },
+
   devtools: { enabled: true },
   dir: {
     app: 'app',

@@ -2,10 +2,10 @@
 console.log('Header')
 
 const mobileMenuOpen = ref(false)
-
-// const cartCount = computed(() =>
-//     cart.value.items.reduce((sum, item) => sum + item.quantity, 0)
-// )
+const { items } = useCart()
+const cartCount = computed(() =>
+    items.value.reduce((sum, item) => sum + item.quantity, 0)
+)
 </script>
 <template>
     <header class="bg-white shadow-md sticky top-0 z-50">

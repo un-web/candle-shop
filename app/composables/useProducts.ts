@@ -1,4 +1,4 @@
-import type { Product, FilterOptions } from '~/types'
+import type { Product, FilterOptions } from '~~/shared/types'
 import productsData from '~/data/products.json'
 
 export const useProducts = () => {

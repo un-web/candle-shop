@@ -4,7 +4,11 @@
         "name": "Лавандовая мечта",
         "description": "Успокаивающий аромат лаванды для расслабления и отдыха",
         "price": 1200,
-        "image": "/images/1.jpg",
+        "images": [
+            "/images/1.jpg",
+            "/images/1.jpg",
+            "/images/1.jpg"
+        ],
         "category": "Ароматические",
         "scent": "Лаванда",
         "volume": 200,
@@ -23,7 +27,11 @@
         "name": "Ванильное облако",
         "description": "Нежный сладкий аромат ванили создаст уют в вашем доме",
         "price": 1350,
-        "image": "/images/2.jpg",
+        "images": [
+            "/images/2.jpg",
+            "/images/2.jpg",
+            "/images/2.jpg"
+        ],
         "category": "Ароматические",
         "scent": "Ваниль",
         "volume": 250,
@@ -42,7 +50,11 @@
         "name": "Морской бриз",
         "description": "Свежий морской аромат с нотками мяты и цитрусов",
         "price": 1150,
-        "image": "/images/3.jpg",
+        "images": [
+            "/images/3.jpg",
+            "/images/3.jpg",
+            "/images/3.jpg"
+        ],
         "category": "Спа",
         "scent": "Морской",
         "volume": 200,
@@ -61,7 +73,11 @@
         "name": "Пряная корица",
         "description": "Теплый пряный аромат корицы с оттенками апельсина",
         "price": 1250,
-        "image": "/images/4.jpg",
+        "images": [
+            "/images/4.jpg",
+            "/images/4.jpg",
+            "/images/4.jpg"
+        ],
         "category": "Декоративные",
         "scent": "Корица",
         "volume": 300,
@@ -80,7 +96,11 @@
         "name": "Роскошная роза",
         "description": "Изысканный аромат свежих роз для романтической атмосферы",
         "price": 1800,
-        "image": "/images/5.jpg",
+        "images": [
+            "/images/5.jpg",
+            "/images/5.jpg",
+            "/images/5.jpg"
+        ],
         "category": "Подарочные",
         "scent": "Роза",
         "volume": 250,

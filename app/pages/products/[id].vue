@@ -55,7 +55,7 @@ useHead({
             <div v-if="product" class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
                 <!-- Галерея -->
                 <div>
-                    <ProductGallery :images="[product.image]" :alt="product.name" />
+                    <ProductGallery :images="product.images" :alt="product.name" />
                 </div>
 
                 <!-- Информация -->
