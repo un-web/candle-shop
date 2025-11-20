@@ -17,7 +17,7 @@ export default defineNuxtConfig({
       // Публичные ключи (доступны на клиенте)
     }
   },
-
+  ssr: false,
   devtools: { enabled: true },
   dir: {
     app: 'app',

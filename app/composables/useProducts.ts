@@ -2,7 +2,7 @@ import type { Product, FilterOptions } from '~~/shared/types'
 import productsData from '~/data/products.json'
 
 export const useProducts = () => {
-    const products = ref<Product[]>(productsData as Product[])
+    const products = useState<Product[]>('products', () => productsData)
     const loading = ref(false)
     const error = ref<string | null>(null)
 
@@ -13,12 +13,24 @@ export const useProducts = () => {
 
     // Получить товар по ID
     const getProductById = (id: number) => {
-        return products.value.find((p: Product) => p.id === id)
+        return products.value.find(p => p.id === id)
     }
 
-    // Фильтрация товаров
+    // Фильтрация и сортировка товаров
     const filterProducts = (filters: FilterOptions) => {
+        console.log('filters', filters)
         let filtered = [...products.value]
+
+        // Поиск по названию, описанию и аромату
+        if (filters.search) {
+            const searchLower = filters.search.toLowerCase()
+            filtered = filtered.filter(p =>
+                p.name.toLowerCase().includes(searchLower) ||
+                p.description.toLowerCase().includes(searchLower) ||
+                p.scent.toLowerCase().includes(searchLower) ||
+                p.category.toLowerCase().includes(searchLower)
+            )
+        }
 
         // Фильтр по категории
         if (filters.category) {
@@ -69,14 +81,26 @@ export const useProducts = () => {
         return filtered
     }
 
-    // Поиск товаров
-    const searchProducts = (query: string) => {
-        const lowerQuery = query.toLowerCase()
-        return products.value.filter((p: Product) =>
-            p.name.toLowerCase().includes(lowerQuery) ||
-            p.description.toLowerCase().includes(lowerQuery) ||
-            p.scent.toLowerCase().includes(lowerQuery)
-        )
+    // Получить уникальные значения для фильтров
+    const getUniqueCategories = () => {
+        return [...new Set(products.value.map(p => p.category))]
+    }
+
+    const getUniqueScents = () => {
+        return [...new Set(products.value.map(p => p.scent))]
+    }
+
+    const getUniqueVolumes = () => {
+        return [...new Set(products.value.map(p => p.volume))].sort((a, b) => a - b)
+    }
+
+    // Получить диапазон цен
+    const getPriceRange = () => {
+        const prices = products.value.map(p => p.price)
+        return {
+            min: Math.min(...prices),
+            max: Math.max(...prices)
+        }
     }
 
     // Получить похожие товары
@@ -85,7 +109,7 @@ export const useProducts = () => {
         if (!product) return []
 
         return products.value
-            .filter((p: Product) => p.id !== productId && p.category === product.category)
+            .filter(p => p.id !== productId && p.category === product.category)
             .slice(0, limit)
     }
 
@@ -96,7 +120,10 @@ export const useProducts = () => {
         getAllProducts,
         getProductById,
         filterProducts,
-        searchProducts,
+        getUniqueCategories,
+        getUniqueScents,
+        getUniqueVolumes,
+        getPriceRange,
         getSimilarProducts
     }
 }

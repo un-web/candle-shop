@@ -29,6 +29,7 @@ export interface FilterOptions {
     scents?: string[]
     inStock?: boolean
     sortBy?: 'price-asc' | 'price-desc' | 'rating' | 'name' | 'default'
+    search?: string
 }
 
 export interface PaginationOptions {
