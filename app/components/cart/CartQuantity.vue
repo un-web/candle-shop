@@ -6,6 +6,7 @@ const props = defineProps<{ item: CartItem }>()
 const { updateQuantity, removeItem } = useCart()
 
 const increment = () => { updateQuantity(props.item.productId, props.item.quantity + 1) }
+
 const decrement = () => {
     if (props.item.quantity > 1)
         updateQuantity(props.item.productId, props.item.quantity - 1)

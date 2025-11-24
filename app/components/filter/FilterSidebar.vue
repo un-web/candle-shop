@@ -13,14 +13,8 @@ const priceRange = computed(() => getPriceRange())
 </script>
 
 <template>
-    <aside class="bg-white rounded-lg p-6 shadow-md h-fit sticky top-24">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-xl font-serif font-bold text-gray-900">Фильтры</h2>
-            <button v-if="filters.category || filters.volumes?.length || filters.scents?.length" @click="resetFilters"
-                class="text-sm text-candle-500 hover:text-candle-600 font-medium">
-                Сбросить
-            </button>
-        </div>
+    <div class="">
+
 
         <!-- Категория -->
         <div class="mb-6 pb-6 border-b">
@@ -83,7 +77,7 @@ const priceRange = computed(() => getPriceRange())
         </div>
 
         <!-- Объем -->
-        <div class="mb-6 pb-6 border-b">
+        <div class="pb-6">
             <h3 class="font-semibold text-gray-800 mb-3">Объем (мл)</h3>
             <div class="space-y-2">
                 <label v-for="volume in volumes" :key="volume" class="flex items-center gap-2 cursor-pointer group">
@@ -96,15 +90,5 @@ const priceRange = computed(() => getPriceRange())
                 </label>
             </div>
         </div>
-
-        <!-- Наличие -->
-        <div class="mb-4">
-            <label class="flex items-center gap-2 cursor-pointer group">
-                <input type="checkbox" v-model="filters.inStock" class="w-4 h-4 accent-candle-500 cursor-pointer" />
-                <span class="text-sm font-medium text-gray-700 group-hover:text-candle-500 transition">
-                    Только в наличии
-                </span>
-            </label>
-        </div>
-    </aside>
+    </div>
 </template>

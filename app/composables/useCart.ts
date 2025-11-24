@@ -20,7 +20,7 @@ export const useCart = () => {
         localStorage.setItem(CART_KEY, JSON.stringify(items))
     }
 
-    const items = ref<CartItem[]>(loadCart())
+    const items = useState<CartItem[]>('cart', () => loadCart())
 
     watch(items, (newItems) => {
         saveCart(newItems)

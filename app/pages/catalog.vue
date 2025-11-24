@@ -3,6 +3,8 @@ import { computed } from 'vue'
 import { useProducts } from '~/composables/useProducts'
 import { useFilters } from '~/composables/useFilters'
 import { usePagination } from '~/composables/usePagination'
+import SortDropdown from '~/components/SortDropdown.vue'
+import FilterSidebar from '~/components/filter/FilterSidebar.vue'
 
 const { filterProducts } = useProducts()
 const { filters, hasActiveFilters, resetFilters } = useFilters()
@@ -91,7 +93,14 @@ useHead({
 
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 <!-- Боковая панель фильтров (Desktop) -->
-                <aside class="hidden lg:block">
+                <aside class="hidden lg:block bg-white rounded-lg p-6 shadow-md h-fit sticky top-36">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-serif font-bold text-gray-900">Фильтры</h2>
+                        <button v-if="filters.category || filters.volumes?.length || filters.scents?.length"
+                            @click="resetFilters" class="text-sm text-candle-500 hover:text-candle-600 font-medium">
+                            Сбросить
+                        </button>
+                    </div>
                     <FilterSidebar />
                 </aside>
 
@@ -99,53 +108,44 @@ useHead({
                 <div class="lg:col-span-3">
                     <!-- Панель управления -->
                     <div
-                        class="bg-white rounded-lg p-4 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                        <!-- Кнопка фильтров (Mobile) -->
-                        <button class="lg:hidden btn-secondary flex items-center gap-2"
-                            @click="mobileFiltersOpen = true">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-                            </svg>
-                            Фильтры
-                        </button>
+                        class="bg-white rounded-lg p-4 mb-6 flex flex-row justify-between items-start items-center gap-4">
+                        <USlideover :close="{
+                            color: 'primary',
+                            variant: 'solid',
+                            class: 'rounded-full'
+                        }" title="Фильтры">
+                            <UButton class="lg:hidden btn-secondary flex items-center gap-2 p-2" color="primary"
+                                variant="solid" @click="mobileFiltersOpen = true">
+                                <Icon name="mdi:filter" />
+                                <!-- Фильтры -->
+                            </UButton>
 
-                        <!-- Сортировка -->
-                        <div class="flex items-center gap-3">
-                            <label class="text-sm text-gray-600">Сортировка:</label>
-                            <select v-model="filters.sortBy"
-                                class="px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-candle-500 focus:border-transparent">
-                                <option :value="undefined">По умолчанию</option>
-                                <option value="price-asc">Цена: по возрастанию</option>
-                                <option value="price-desc">Цена: по убыванию</option>
-                                <option value="rating">По рейтингу</option>
-                                <option value="name">По названию</option>
-                            </select>
-                        </div>
+                            <template #body>
+                                <FilterSidebar />
+                            </template>
+                        </USlideover>
+                        <!-- Кнопка фильтров (Mobile) -->
+
+                        <SortDropdown />
+
 
                         <!-- Вид отображения -->
-                        <div class="flex gap-2">
+                        <div class="hidden gap-2 sm:flex">
                             <button :class="[
-                                'p-2 rounded-lg transition',
+                                'p-2 rounded-lg transition flex',
                                 viewMode === 'grid'
-                                    ? 'bg-candle-500 text-white'
-                                    : 'bg-gray-200 text-gray-600'
+                                    ? 'bg-primary text-white'
+                                    : 'bg-elevated text-gray-600'
                             ]" @click="viewMode = 'grid'" aria-label="Вид сеткой">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                                </svg>
+                                <Icon name="mdi:view-grid" class="text-xl" />
                             </button>
                             <button :class="[
-                                'p-2 rounded-lg transition',
+                                'p-2 rounded-lg transition flex',
                                 viewMode === 'list'
-                                    ? 'bg-candle-500 text-white'
-                                    : 'bg-gray-200 text-gray-600'
+                                    ? 'bg-primary text-white'
+                                    : 'bg-elevated text-gray-600'
                             ]" @click="viewMode = 'list'" aria-label="Вид списком">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6h16M4 12h16M4 18h16" />
-                                </svg>
+                                <Icon name="mdi:view-list" class="text-xl" />
                             </button>
                         </div>
                     </div>
@@ -206,7 +206,7 @@ useHead({
         </div>
 
         <!-- Мобильные фильтры (Modal) -->
-        <Teleport to="body">
+        <!-- <Teleport to="body">
             <Transition name="fade">
                 <div v-if="mobileFiltersOpen" class="fixed inset-0 bg-black/50 z-50 lg:hidden"
                     @click="mobileFiltersOpen = false">
@@ -215,10 +215,7 @@ useHead({
                             <div class="p-4 border-b flex justify-between items-center sticky top-0 bg-white z-10">
                                 <h2 class="text-xl font-bold">Фильтры</h2>
                                 <button @click="mobileFiltersOpen = false">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
+                                    <Icon name="mdi:close" />
                                 </button>
                             </div>
                             <div class="p-4">
@@ -228,7 +225,7 @@ useHead({
                     </Transition>
                 </div>
             </Transition>
-        </Teleport>
+        </Teleport> -->
     </div>
 </template>
 
